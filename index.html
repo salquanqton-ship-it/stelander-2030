@@ -430,6 +430,137 @@
       margin: 0 auto;
     }
 
+    /* SIMULATION DATA */
+    .sim-data-section {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 32px 36px;
+      margin-bottom: 48px;
+    }
+
+    .sim-data-section h2 {
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 24px;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 12px;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      margin-bottom: 28px;
+    }
+
+    .stat-card {
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 14px 16px;
+      text-align: center;
+    }
+
+    .stat-card .stat-value {
+      font-size: 28px;
+      font-weight: 800;
+      color: var(--accent);
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+
+    .stat-card .stat-label {
+      font-size: 11px;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+    }
+
+    .agents-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+      margin-bottom: 20px;
+    }
+
+    .agent-tag {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--border);
+      border-radius: 5px;
+      padding: 4px 10px;
+      font-size: 12px;
+      color: #8899bb;
+    }
+
+    .agent-tag.key-agent {
+      background: rgba(200,169,110,0.08);
+      border-color: rgba(200,169,110,0.2);
+      color: var(--accent);
+    }
+
+    .sim-meta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      font-size: 12px;
+      color: var(--muted);
+      border-top: 1px solid var(--border);
+      padding-top: 16px;
+      margin-top: 4px;
+    }
+
+    .sim-meta-row span { color: var(--text); }
+
+    .platform-bars {
+      display: flex;
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+
+    .platform-bar {
+      flex: 1;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 14px 16px;
+    }
+
+    .platform-bar .platform-name {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--muted);
+      margin-bottom: 8px;
+    }
+
+    .platform-bar .platform-actions {
+      font-size: 22px;
+      font-weight: 800;
+      color: var(--accent2);
+    }
+
+    .platform-bar .platform-sub {
+      font-size: 11px;
+      color: var(--muted);
+      margin-top: 2px;
+    }
+
+    .bar-track {
+      background: rgba(255,255,255,0.05);
+      border-radius: 4px;
+      height: 6px;
+      margin-top: 10px;
+      overflow: hidden;
+    }
+
+    .bar-fill-twitter { height: 100%; background: var(--accent2); border-radius: 4px; width: 65%; }
+    .bar-fill-reddit  { height: 100%; background: #ff6b4a; border-radius: 4px; width: 35%; }
+
     /* FOOTER */
     .report-footer {
       border-top: 1px solid var(--border);
@@ -510,6 +641,116 @@
   </div>
 
   <div class="container">
+
+    <!-- DADOS DA SIMULAÇÃO -->
+    <div class="sim-data-section">
+      <h2>Dados Técnicos da Simulação MiroFish</h2>
+
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-value">56</div>
+          <div class="stat-label">Agentes</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value">20</div>
+          <div class="stat-label">Rodadas</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value">23</div>
+          <div class="stat-label">Ações totais</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value">203</div>
+          <div class="stat-label">Nós no grafo</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value">285</div>
+          <div class="stat-label">Arestas</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value">4</div>
+          <div class="stat-label">Cenários macro</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value">13</div>
+          <div class="stat-label">Canais avaliados</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value">44min</div>
+          <div class="stat-label">Tempo de geração</div>
+        </div>
+      </div>
+
+      <div style="font-size:12px; font-weight:700; text-transform:uppercase; letter-spacing:1px; color:var(--muted); margin-bottom:10px;">Plataformas simuladas</div>
+      <div class="platform-bars">
+        <div class="platform-bar">
+          <div class="platform-name">Twitter</div>
+          <div class="platform-actions">15</div>
+          <div class="platform-sub">ações registradas</div>
+          <div class="bar-track"><div class="bar-fill-twitter"></div></div>
+        </div>
+        <div class="platform-bar">
+          <div class="platform-name">Reddit</div>
+          <div class="platform-actions">8</div>
+          <div class="platform-sub">ações registradas</div>
+          <div class="bar-track"><div class="bar-fill-reddit"></div></div>
+        </div>
+      </div>
+
+      <div style="font-size:12px; font-weight:700; text-transform:uppercase; letter-spacing:1px; color:var(--muted); margin-bottom:10px;">Agentes simulados (56 total)</div>
+      <div class="agents-grid">
+        <span class="agent-tag key-agent">STELANDER CO</span>
+        <span class="agent-tag key-agent">Fabiano Isoppo</span>
+        <span class="agent-tag key-agent">QuanQton Ocean Salts</span>
+        <span class="agent-tag key-agent">White Label Channel</span>
+        <span class="agent-tag key-agent">New Quantic</span>
+        <span class="agent-tag key-agent">Tedalso</span>
+        <span class="agent-tag key-agent">Leve Croc (Sabor e Leve)</span>
+        <span class="agent-tag key-agent">Larissa (Head Comercial)</span>
+        <span class="agent-tag key-agent">Jobel Ferreira (Gestor Rede)</span>
+        <span class="agent-tag key-agent">SD Growth</span>
+        <span class="agent-tag key-agent">Stela Lucas Isoppo</span>
+        <span class="agent-tag">Representante SP</span>
+        <span class="agent-tag">Representante RJ</span>
+        <span class="agent-tag">Representante RS</span>
+        <span class="agent-tag">Representante SC</span>
+        <span class="agent-tag">Representante PR</span>
+        <span class="agent-tag">Representante DF</span>
+        <span class="agent-tag">Representante MG</span>
+        <span class="agent-tag">Representante MS</span>
+        <span class="agent-tag">Consumidor B2C Premium</span>
+        <span class="agent-tag">Consumidor Endurance</span>
+        <span class="agent-tag">Consumidor Churrasco</span>
+        <span class="agent-tag">Lead B2B Food Service</span>
+        <span class="agent-tag">Lead Distribuidor</span>
+        <span class="agent-tag">Ourigen (marca supermercado)</span>
+        <span class="agent-tag">STELANDER LIFE HUB</span>
+        <span class="agent-tag">Membro Comunidade</span>
+        <span class="agent-tag">IAFAE (ONG)</span>
+        <span class="agent-tag">Leon e Poseidon</span>
+        <span class="agent-tag">Concorrente Himalaia</span>
+        <span class="agent-tag">Concorrente Commodity</span>
+        <span class="agent-tag">Rede Supermercado BR</span>
+        <span class="agent-tag">Atacado / Makro</span>
+        <span class="agent-tag">Afiliado Digital</span>
+        <span class="agent-tag">Influenciador Saúde</span>
+        <span class="agent-tag">Investidor Externo</span>
+        <span class="agent-tag">Economia Global 2027</span>
+        <span class="agent-tag">Cenário Reset Digital</span>
+        <span class="agent-tag">Cenário Colapso Climático</span>
+        <span class="agent-tag">Cenário Grande Depressão 2030</span>
+        <span class="agent-tag">+ 16 agentes secundários</span>
+      </div>
+
+      <div class="sim-meta-row">
+        <div>Grafo: <span>mirofish_27778f9d65454f18</span></div>
+        <div>Simulação: <span>sim_c179c9f2b44d</span></div>
+        <div>Relatório: <span>report_f4a68644c6b7</span></div>
+        <div>LLM: <span>gpt-4o-mini (OpenAI)</span></div>
+        <div>Engine: <span>MiroFish OASIS v2 + Zep Cloud</span></div>
+        <div>Executado em: <span>27/05/2026 10:26</span></div>
+      </div>
+    </div>
 
     <!-- SÍNTESE EXECUTIVA -->
     <div class="executive-summary">
