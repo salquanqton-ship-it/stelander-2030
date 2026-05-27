@@ -1,0 +1,761 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>STELANDER 2030 — Relatório de Previsão do Ecossistema</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0c0e14;
+      --surface: #13161f;
+      --surface2: #1a1e2a;
+      --border: #252936;
+      --accent: #c8a96e;
+      --accent2: #4f8ef7;
+      --accent3: #5ccea0;
+      --danger: #e05c5c;
+      --text: #e8e9ee;
+      --muted: #7a8099;
+      --quote-bg: #161a26;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      font-size: 15px;
+      line-height: 1.7;
+    }
+
+    /* HEADER */
+    .report-header {
+      background: linear-gradient(135deg, #0f1219 0%, #1a1428 50%, #0f1219 100%);
+      border-bottom: 1px solid var(--border);
+      padding: 60px 40px 48px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .report-header::before {
+      content: '';
+      position: absolute;
+      top: -80px; right: -80px;
+      width: 400px; height: 400px;
+      background: radial-gradient(circle, rgba(200,169,110,0.07) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .report-header::after {
+      content: '';
+      position: absolute;
+      bottom: -60px; left: 20%;
+      width: 300px; height: 300px;
+      background: radial-gradient(circle, rgba(79,142,247,0.05) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .header-inner {
+      max-width: 900px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    .header-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(200,169,110,0.1);
+      border: 1px solid rgba(200,169,110,0.25);
+      color: var(--accent);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      padding: 5px 14px;
+      border-radius: 20px;
+      margin-bottom: 24px;
+    }
+
+    .header-badge span.dot {
+      width: 6px; height: 6px;
+      background: var(--accent);
+      border-radius: 50%;
+      display: inline-block;
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(0.8); }
+    }
+
+    h1.report-title {
+      font-size: 38px;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      line-height: 1.15;
+      margin-bottom: 16px;
+      color: #fff;
+    }
+
+    h1.report-title span.highlight {
+      color: var(--accent);
+    }
+
+    .report-tagline {
+      font-size: 17px;
+      color: var(--muted);
+      max-width: 640px;
+      line-height: 1.55;
+      margin-bottom: 36px;
+    }
+
+    .meta-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .meta-item {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 10px 16px;
+      font-size: 12px;
+    }
+
+    .meta-item .label {
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      font-size: 10px;
+      font-weight: 600;
+      margin-bottom: 2px;
+    }
+
+    .meta-item .value {
+      color: var(--text);
+      font-weight: 500;
+    }
+
+    /* CONTAINER */
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 48px 40px;
+    }
+
+    /* EXECUTIVE SUMMARY BOX */
+    .executive-summary {
+      background: linear-gradient(135deg, rgba(200,169,110,0.06), rgba(79,142,247,0.04));
+      border: 1px solid rgba(200,169,110,0.2);
+      border-radius: 12px;
+      padding: 32px 36px;
+      margin-bottom: 48px;
+    }
+
+    .executive-summary h2 {
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 24px;
+    }
+
+    .conclusion-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .conclusion-card {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 16px 20px;
+    }
+
+    .conclusion-card .num {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      color: var(--muted);
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+
+    .conclusion-card .conclusion-text {
+      font-size: 14px;
+      color: var(--text);
+      line-height: 1.5;
+    }
+
+    .conclusion-card .conclusion-text strong {
+      color: #fff;
+    }
+
+    .conclusion-card.highlight-green { border-color: rgba(92,206,160,0.3); }
+    .conclusion-card.highlight-blue  { border-color: rgba(79,142,247,0.3); }
+    .conclusion-card.highlight-red   { border-color: rgba(224,92,92,0.25); }
+    .conclusion-card.highlight-gold  { border-color: rgba(200,169,110,0.3); }
+
+    /* SECTIONS */
+    .section {
+      margin-bottom: 56px;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 28px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .section-number {
+      width: 38px; height: 38px;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--accent);
+      flex-shrink: 0;
+    }
+
+    h2.section-title {
+      font-size: 22px;
+      font-weight: 700;
+      color: #fff;
+    }
+
+    h3.subsection {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin: 28px 0 12px;
+    }
+
+    p {
+      color: #bfc5d6;
+      margin-bottom: 14px;
+    }
+
+    blockquote {
+      background: var(--quote-bg);
+      border-left: 3px solid var(--accent);
+      border-radius: 0 8px 8px 0;
+      padding: 14px 20px;
+      margin: 16px 0;
+      color: #cdd3e0;
+      font-style: italic;
+      font-size: 14px;
+      line-height: 1.65;
+    }
+
+    .conclusion-note {
+      background: rgba(92,206,160,0.05);
+      border: 1px solid rgba(92,206,160,0.15);
+      border-radius: 8px;
+      padding: 14px 18px;
+      font-size: 13.5px;
+      color: #9ae0c3;
+      margin-top: 20px;
+    }
+
+    .conclusion-note strong {
+      color: var(--accent3);
+    }
+
+    /* RANKING TABLE */
+    .ranking-section {
+      margin-top: 32px;
+    }
+
+    .ranking-section h3 {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+    }
+
+    .ranking-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13.5px;
+    }
+
+    .ranking-table thead tr {
+      background: var(--surface2);
+    }
+
+    .ranking-table th {
+      padding: 10px 14px;
+      text-align: left;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--muted);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .ranking-table td {
+      padding: 12px 14px;
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+      vertical-align: top;
+      color: #bfc5d6;
+    }
+
+    .ranking-table tr:hover td { background: rgba(255,255,255,0.02); }
+
+    .rank-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 26px; height: 26px;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .rank-1 { background: rgba(200,169,110,0.15); color: var(--accent); border: 1px solid rgba(200,169,110,0.3); }
+    .rank-2 { background: rgba(92,206,160,0.1); color: var(--accent3); border: 1px solid rgba(92,206,160,0.25); }
+    .rank-3 { background: rgba(79,142,247,0.1); color: var(--accent2); border: 1px solid rgba(79,142,247,0.25); }
+    .rank-4 { background: rgba(255,255,255,0.05); color: #8899bb; border: 1px solid var(--border); }
+    .rank-5 { background: rgba(255,255,255,0.04); color: #7a8099; border: 1px solid var(--border); }
+    .rank-6 { background: rgba(255,255,255,0.03); color: #6a7088; border: 1px solid var(--border); }
+    .rank-7 { background: rgba(224,92,92,0.08); color: #e08080; border: 1px solid rgba(224,92,92,0.2); }
+    .rank-8 { background: rgba(224,92,92,0.06); color: #cc7070; border: 1px solid rgba(224,92,92,0.15); }
+
+    .channel-name {
+      font-weight: 600;
+      color: #e0e4f0;
+    }
+
+    .behavior-tag {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-size: 11px;
+      font-weight: 600;
+    }
+
+    .behavior-grows { background: rgba(92,206,160,0.1); color: var(--accent3); }
+    .behavior-stable { background: rgba(79,142,247,0.1); color: var(--accent2); }
+    .behavior-adaptive { background: rgba(200,169,110,0.1); color: var(--accent); }
+    .behavior-drop { background: rgba(224,92,92,0.1); color: var(--danger); }
+    .behavior-moderate { background: rgba(255,255,255,0.06); color: var(--muted); }
+    .behavior-future { background: rgba(150,100,200,0.1); color: #b088e0; }
+
+    /* PILLARS */
+    .pillars-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-top: 24px;
+    }
+
+    .pillar-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 20px 22px;
+      transition: border-color 0.2s;
+    }
+
+    .pillar-card:hover { border-color: rgba(200,169,110,0.3); }
+
+    .pillar-card .pillar-number {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 8px;
+    }
+
+    .pillar-card h4 {
+      font-size: 15px;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 8px;
+    }
+
+    .pillar-card p {
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.5;
+      margin: 0;
+    }
+
+    .pillar-card.p1 { border-top: 2px solid var(--accent); }
+    .pillar-card.p2 { border-top: 2px solid var(--accent3); }
+    .pillar-card.p3 { border-top: 2px solid var(--accent2); }
+    .pillar-card.p4 { border-top: 2px solid #b088e0; }
+    .pillar-card.p5 {
+      grid-column: 1 / -1;
+      border-top: 2px solid #e08050;
+      background: linear-gradient(135deg, rgba(224,128,80,0.05), transparent);
+    }
+
+    /* QUOTE FINAL */
+    .final-quote {
+      background: linear-gradient(135deg, rgba(200,169,110,0.05), rgba(79,142,247,0.04));
+      border: 1px solid rgba(200,169,110,0.2);
+      border-radius: 12px;
+      padding: 28px 32px;
+      margin-top: 48px;
+      text-align: center;
+    }
+
+    .final-quote p {
+      font-size: 17px;
+      font-style: italic;
+      color: #d0c8a8;
+      line-height: 1.7;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    /* FOOTER */
+    .report-footer {
+      border-top: 1px solid var(--border);
+      padding: 24px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .footer-left { font-size: 12px; color: var(--muted); }
+    .footer-right { font-size: 11px; color: var(--border); font-family: monospace; }
+
+    /* DIVIDER */
+    .divider {
+      height: 1px;
+      background: linear-gradient(to right, transparent, var(--border), transparent);
+      margin: 40px 0;
+    }
+
+    /* Responsivo */
+    @media (max-width: 680px) {
+      .report-header { padding: 36px 20px 32px; }
+      h1.report-title { font-size: 26px; }
+      .container { padding: 32px 20px; }
+      .conclusion-grid { grid-template-columns: 1fr; }
+      .pillars-grid { grid-template-columns: 1fr; }
+      .pillar-card.p5 { grid-column: auto; }
+      .ranking-table { font-size: 12px; }
+      .ranking-table th, .ranking-table td { padding: 8px 10px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <div class="report-header">
+    <div class="header-inner">
+      <div class="header-badge">
+        <span class="dot"></span>
+        MiroFish OASIS v2 &nbsp;·&nbsp; Simulação Social
+      </div>
+      <h1 class="report-title">
+        STELANDER <span class="highlight">2030</span><br>
+        Relatório de Previsão do Ecossistema
+      </h1>
+      <p class="report-tagline">
+        Em cenário de crise global, o canal de comunidade demonstrou a maior resiliência e sustentabilidade, tornando-se o principal motor de crescimento para o período 2026-2030.
+      </p>
+      <div class="meta-grid">
+        <div class="meta-item">
+          <div class="label">Agentes</div>
+          <div class="value">56</div>
+        </div>
+        <div class="meta-item">
+          <div class="label">Rodadas</div>
+          <div class="value">20</div>
+        </div>
+        <div class="meta-item">
+          <div class="label">Plataforma</div>
+          <div class="value">Twitter + Reddit (paralelo)</div>
+        </div>
+        <div class="meta-item">
+          <div class="label">Cenários macro</div>
+          <div class="value">4 (2027-2030)</div>
+        </div>
+        <div class="meta-item">
+          <div class="label">Data de execução</div>
+          <div class="value">27/05/2026</div>
+        </div>
+        <div class="meta-item">
+          <div class="label">LLM</div>
+          <div class="value">gpt-4o-mini (OpenAI)</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+
+    <!-- SÍNTESE EXECUTIVA -->
+    <div class="executive-summary">
+      <h2>Síntese Executiva</h2>
+      <div class="conclusion-grid">
+        <div class="conclusion-card highlight-green">
+          <div class="num">Canal mais resiliente</div>
+          <div class="conclusion-text"><strong>Comunidade e Pertencimento (Memberships).</strong> Quanto mais severa a crise, mais essencial ele se torna.</div>
+        </div>
+        <div class="conclusion-card highlight-blue">
+          <div class="num">Canal mais lucrativo no curto prazo</div>
+          <div class="conclusion-text"><strong>White Label.</strong> Receita concentrada, previsível, com clientes de setores defensivos.</div>
+        </div>
+        <div class="conclusion-card highlight-red">
+          <div class="num">Canal mais vulnerável</div>
+          <div class="conclusion-text"><strong>B2C premium direto.</strong> Queda de 40-60% em cenários de crise severa.</div>
+        </div>
+        <div class="conclusion-card highlight-gold">
+          <div class="num">Combinação vencedora para 2030</div>
+          <div class="conclusion-text"><strong>Comunidade + White Label + Digital,</strong> com LIFE HUBS como diferencial de longo prazo.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SEÇÃO 1 -->
+    <div class="section">
+      <div class="section-header">
+        <div class="section-number">01</div>
+        <h2 class="section-title">Desempenho dos Canais em Cenário de Crise Global</h2>
+      </div>
+
+      <p>Na perspectiva de uma crise global, os canais da STELANDER demonstraram diversidade e capacidade de adaptação significativas. A análise dos dados da simulação revela como cada canal se comporta sob pressão e como os agentes respondem a ameaças e oportunidades.</p>
+
+      <h3 class="subsection">Canais e Resiliência</h3>
+      <p>O canal de comunidade e pertencimento foi identificado como o mais resiliente de todos. Os agentes simulados indicaram:</p>
+
+      <blockquote>"À medida que o desejo das pessoas por pertencimento e conexão se aprofunda, a STELANDER criou com sucesso um ambiente de suporte e participação ao intensificar a interação com os usuários."</blockquote>
+
+      <blockquote>"Os canais de comunidade e pertencimento da STELANDER (Memberships) tornam-se mais importantes durante crises, pois as pessoas buscam propósito e conexão em períodos de instabilidade."</blockquote>
+
+      <p>O canal White Label também demonstrou forte capacidade de sobrevivência em períodos de recessão econômica, especialmente quando os clientes B2B atuam em setores defensivos:</p>
+
+      <blockquote>"O canal White Label da STELANDER manteve volume de vendas durante a recessão moderada."</blockquote>
+
+      <h3 class="subsection">Impacto na Lucratividade</h3>
+      <p>A simulação indicou que o consumo no mercado B2C cai acentuadamente em cenários de crise, com redução estimada de 40% a 60%:</p>
+
+      <blockquote>"O segmento B2C é o primeiro a ser afetado, pois os consumidores cortam gastos com produtos premium."</blockquote>
+
+      <p>Os dados reais de 2026 foram usados como linha de base da simulação:</p>
+
+      <blockquote>"White Label: jan/2026 R$ 44.389 · fev/2026 R$ 117.674 · mar/2026 R$ 182.203 · abr/2026 R$ 81.258"</blockquote>
+
+      <h3 class="subsection">Sustentabilidade e Estratégia Futura</h3>
+      <blockquote>"A chave para manter a sustentabilidade e lucratividade dos canais durante crises está na adaptação ágil às mudanças do mercado e na otimização da gestão de recursos."</blockquote>
+
+      <p>Os STELANDER LIFE HUBS foram identificados como canal emergente crítico: estruturas que suportam distribuição de produtos, educação e funções comunitárias simultaneamente.</p>
+
+      <h3 class="subsection">Desafios e Riscos</h3>
+      <blockquote>"Os representantes encontram dificuldade em converter clientes, pois a crise afeta o ambiente da STELANDER."</blockquote>
+
+      <div class="conclusion-note">
+        <strong>Conclusão:</strong> A STELANDER demonstra resiliência sólida em crise, com os canais de comunidade e White Label como os mais resistentes. A estratégia flexível e o desenvolvimento de novos canais permitem capturar oportunidades e garantir crescimento sustentável.
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- SEÇÃO 2 -->
+    <div class="section">
+      <div class="section-header">
+        <div class="section-number">02</div>
+        <h2 class="section-title">Reações e Ações dos Agentes</h2>
+      </div>
+
+      <p>Durante a simulação de crise global, os 56 agentes do ecossistema STELANDER demonstraram diversidade e capacidade de adaptação. A análise de entrevistas e dados revela como cada tipo de agente ajusta suas estratégias.</p>
+
+      <h3 class="subsection">Resiliência da Comunidade</h3>
+      <blockquote>"A característica central do ecossistema STELANDER está em sua estrutura centrada na comunidade e na flexibilidade adaptativa. Isso nos permite responder rapidamente às necessidades da comunidade e otimizar a alocação de recursos por meio da colaboração coletiva."</blockquote>
+
+      <h3 class="subsection">Flexibilidade dos Representantes Comerciais</h3>
+      <p>Os representantes ajustaram ativamente suas estratégias de vendas ao enfrentar dificuldades de conversão:</p>
+      <blockquote>"Precisamos ser mais flexíveis para atender às demandas dos clientes, ajustando nossa comunicação para manter contato mesmo durante a crise."</blockquote>
+
+      <h3 class="subsection">Ascensão dos Canais Digitais</h3>
+      <blockquote>"Os agentes forneceram recursos educacionais acessíveis por plataformas online, permitindo que mais famílias continuassem aprendendo, algo especialmente importante em períodos de isolamento."</blockquote>
+
+      <h3 class="subsection">Elevação da Consciência de Risco</h3>
+      <blockquote>"Precisamos estar sempre vigilantes quanto a novos concorrentes no mercado para garantir que nossa participação não seja erodida."</blockquote>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- SEÇÃO 3 -->
+    <div class="section">
+      <div class="section-header">
+        <div class="section-number">03</div>
+        <h2 class="section-title">Tendências Futuras e Riscos Potenciais (2026-2030)</h2>
+      </div>
+
+      <h3 class="subsection">Tendências de Desenvolvimento</h3>
+      <p>Os agentes concordam que a <strong>transformação digital</strong> e o <strong>desenvolvimento sustentável</strong> serão as tendências mais importantes do período:</p>
+
+      <blockquote>"À medida que consumidores prestam cada vez mais atenção à proteção ambiental e responsabilidade social, as empresas precisam adaptar-se, fornecendo serviços superiores por meio de estruturas logísticas e legais inovadoras."</blockquote>
+
+      <blockquote>"Bons relacionamentos comunitários podem fortalecer o senso de pertencimento e lealdade dos membros, elevando a identificação com a marca."</blockquote>
+
+      <h3 class="subsection">Estratégias para Fortalecer a Resiliência</h3>
+      <blockquote>"Ao integrar recursos da cadeia de suprimentos e otimizar a logística, podemos responder de forma mais eficaz a eventos imprevistos."</blockquote>
+      <blockquote>"A educação em saúde e os relacionamentos comunitários de suporte ajudarão os membros a se apoiarem mutuamente em momentos de crise, compartilhando recursos e conhecimento."</blockquote>
+
+      <h3 class="subsection">Riscos Potenciais</h3>
+      <blockquote>"À medida que expandimos o mercado, podemos enfrentar concorrência acirrada de outras empresas, e a distribuição de recursos pode ser insuficiente, afetando a eficiência operacional geral."</blockquote>
+      <blockquote>"Para evitar esse risco, precisamos estabelecer padrões claros de comunicação e definição de papéis, criando mecanismos de colaboração eficientes."</blockquote>
+
+      <div class="conclusion-note">
+        <strong>Conclusão:</strong> O desenvolvimento futuro da STELANDER se concentrará em digitalização e sustentabilidade, com fortalecimento comunitário e operações ágeis. Os riscos de concorrência e alocação inadequada de recursos não podem ser ignorados.
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- SEÇÃO 4 -->
+    <div class="section">
+      <div class="section-header">
+        <div class="section-number">04</div>
+        <h2 class="section-title">Estratégia Ideal de Ativação de Canais</h2>
+      </div>
+
+      <p>Nos próximos cinco anos, a estratégia de ativação de canais deve ter <strong>flexibilidade</strong> e <strong>adaptabilidade</strong> como núcleo, especialmente na resposta a crises globais.</p>
+
+      <blockquote>"Precisamos monitorar as dinâmicas do mercado global em tempo real e ajustar estratégias rapidamente de acordo com as mudanças."</blockquote>
+      <blockquote>"As redes sociais podem interagir diretamente com consumidores, aumentando visibilidade e engajamento da marca, enquanto as experiências imersivas fornecem uma profunda imersão na marca, fortalecendo a lealdade."</blockquote>
+      <blockquote>"A confiança entre membros da comunidade promove melhor colaboração e compartilhamento de conhecimento, enquanto a transmissão transparente de informações fortalece a credibilidade da organização."</blockquote>
+
+      <!-- RANKING TABLE -->
+      <div class="ranking-section">
+        <h3>Ranking de Canais por Resiliência em Crise</h3>
+        <table class="ranking-table">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Canal</th>
+              <th>Comportamento em Crise</th>
+              <th>Observação</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><span class="rank-badge rank-1">1</span></td>
+              <td><span class="channel-name">Comunidade e Pertencimento</span><br><small style="color:var(--muted)">Memberships</small></td>
+              <td><span class="behavior-tag behavior-grows">Cresce em crise</span></td>
+              <td>Pessoas buscam propósito e conexão em instabilidade</td>
+            </tr>
+            <tr>
+              <td><span class="rank-badge rank-2">2</span></td>
+              <td><span class="channel-name">White Label</span><br><small style="color:var(--muted)">B2B</small></td>
+              <td><span class="behavior-tag behavior-stable">Estável em recessão</span></td>
+              <td>Clientes em setores defensivos mantêm compras</td>
+            </tr>
+            <tr>
+              <td><span class="rank-badge rank-3">3</span></td>
+              <td><span class="channel-name">Canais Digitais</span><br><small style="color:var(--muted)">E-commerce, redes sociais</small></td>
+              <td><span class="behavior-tag behavior-adaptive">Adaptável</span></td>
+              <td>Requer investimento em transformação digital</td>
+            </tr>
+            <tr>
+              <td><span class="rank-badge rank-4">4</span></td>
+              <td><span class="channel-name">Representantes</span><br><small style="color:var(--muted)">Venda direta</small></td>
+              <td><span class="behavior-tag behavior-moderate">Resiliente c/ suporte</span></td>
+              <td>Dificuldade de conversão sem estrutura de apoio</td>
+            </tr>
+            <tr>
+              <td><span class="rank-badge rank-5">5</span></td>
+              <td><span class="channel-name">B2B Direto</span><br><small style="color:var(--muted)">Food service, distribuidores</small></td>
+              <td><span class="behavior-tag behavior-moderate">Moderadamente estável</span></td>
+              <td>Depende do setor do cliente</td>
+            </tr>
+            <tr>
+              <td><span class="rank-badge rank-6">6</span></td>
+              <td><span class="channel-name">STELANDER LIFE HUBS</span><br><small style="color:var(--muted)">Estrutura física regional</small></td>
+              <td><span class="behavior-tag behavior-future">Alto potencial futuro</span></td>
+              <td>Ainda inexistente, fase de construção</td>
+            </tr>
+            <tr>
+              <td><span class="rank-badge rank-7">7</span></td>
+              <td><span class="channel-name">B2C Direto Premium</span><br><small style="color:var(--muted)">E-commerce direto</small></td>
+              <td><span class="behavior-tag behavior-drop">Queda 40-60%</span></td>
+              <td>Primeiro segmento afetado em crise severa</td>
+            </tr>
+            <tr>
+              <td><span class="rank-badge rank-8">8</span></td>
+              <td><span class="channel-name">Supermercados e Varejo</span><br><small style="color:var(--muted)">Ourigen</small></td>
+              <td><span class="behavior-tag behavior-drop">Vulnerável</span></td>
+              <td>Concorrência direta com marcas mais baratas</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- PILLARS -->
+      <div style="margin-top: 40px;">
+        <h3 style="font-size:14px; font-weight:700; color:var(--accent); text-transform:uppercase; letter-spacing:1px; margin-bottom:16px;">Combinação Ideal de Canais para Liderança Global em Saúde</h3>
+        <div class="pillars-grid">
+          <div class="pillar-card p1">
+            <div class="pillar-number">Pilar 01</div>
+            <h4>Comunidade como Infraestrutura</h4>
+            <p>Memberships, STELANDER LIFE OS, gamificação, pertencimento. Canal âncora que sustenta todos os outros durante crises.</p>
+          </div>
+          <div class="pillar-card p2">
+            <div class="pillar-number">Pilar 02</div>
+            <h4>White Label como Gerador de Caixa B2B</h4>
+            <p>Parcerias com setores defensivos: saúde, alimentos básicos, suplementos. Receita previsível e resiliente.</p>
+          </div>
+          <div class="pillar-card p3">
+            <div class="pillar-number">Pilar 03</div>
+            <h4>Digital como Amplificador</h4>
+            <p>Redes sociais, e-commerce direto, conteúdo educacional. Menor custo operacional, alta escalabilidade.</p>
+          </div>
+          <div class="pillar-card p4">
+            <div class="pillar-number">Pilar 04</div>
+            <h4>Representantes como Expansão Territorial</h4>
+            <p>Com app, gamificação e STELANDER FLOW: canal de alta resiliência por operar por relacionamento, não por volume publicitário.</p>
+          </div>
+          <div class="pillar-card p5">
+            <div class="pillar-number">Pilar 05 — Diferencial de Longo Prazo</div>
+            <h4>STELANDER LIFE HUBS</h4>
+            <p>Estruturas físicas regionais que funcionam simultaneamente como ponto de distribuição, educação, experiência e comunidade. Vantagem competitiva defensável e intransponível no longo prazo.</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- QUOTE FINAL -->
+    <div class="final-quote">
+      <p>"Em crises, a capacidade de adaptação e o espírito de inovação são os pilares da sobrevivência e do crescimento empresarial."</p>
+    </div>
+
+  </div>
+
+  <!-- FOOTER -->
+  <div class="report-footer">
+    <div class="footer-left">Simulação executada em 27/05/2026 · MiroFish OASIS v2 · SD Growth / Ricardo Durigon</div>
+    <div class="footer-right">sim_c179c9f2b44d · report_f4a68644c6b7</div>
+  </div>
+
+</body>
+</html>
